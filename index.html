@@ -10,13 +10,48 @@
 <body>
 	<div class="main_container">
 		<h1 class="main_time">∞:∞:∞</h1>
-		<p class="subtitle-p">timmar, minuter och sekunders lektionstid<span class="asterisk">*</span> kvar innan...</p>
+		<p class="subtitle-p">timmar, minuter och sekunders lektionstid</span> kvar innan...</p>
 		<p class="subtitle-p">...</p>
 		<p class="subtitle-p">Sommarens Lov</p>
 	</div>
 	<div class="hover-c hover-c1"><img class="lars1" src="lars1.png"></div>
 	<div class="hover-c hover-c2"><img class="lars1" src="lars1.png"></div>
+	<div class="settings">
+		<h1>Vilka lektioner har du?</h1>
+		<label for="2c">Matte2c</label>
+		<input type="checkbox" id="2c"/>
+		<label for="bio">Biologi</label>
+		<input type="checkbox" id="bio"/>
+		<label for="fysik">Fysik</label>
+		<input type="checkbox" id="fysik"/>
+		<label for="prim_fys">Fysik före biologi på onsdagar</label>
+		<input type="checkbox" id="prim_fys" />
+		<label for="sam">SAM</label>
+		<input type="checkbox" id="sam"/>
+		<label for="long_math">Förlängd skrivtid på Spec1 prov</label>
+		<input type="checkbox" id="long_math"/>
+		<label for="idr">Idrott</label>
+		<input type="checkbox" id="idr"/>
+		<label for="eng">Engelska</label>
+		<input type="checkbox" id="eng"/>
+		<label for="svenska">Svenska</label>
+		<input type="checkbox" id="svenska"/>
+		<label for="ma5">Matte5</label>
+		<input type="checkbox" id="ma5"/>
+		<label for="sva">Svenska som andraspråk</label>
+		<input type="checkbox" id="sva"/>
+		<label for="extra_fysik">En extra fysiklektion efter fysikprovet som vi förmodligen inte ska ha</label>
+		<input type="checkbox" id="extra_fysik"/>
+
+		<label for="lang">Språk</label>
+		<select id="lang">
+			<option value="fra">Franska/Italienska</option>
+			<option value="spa">Spanska</option>
+			<option value="deu">Tyska</option>
+		</select>
+
+		<button id="ya">Ja</button>
+	</div>
 	<script tyep="module" src="index.js"></script>
-	<span class="asterisk-note">*Bortsett från Ma2c Lektioner</span>
 </body>
 </html>

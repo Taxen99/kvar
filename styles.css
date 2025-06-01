@@ -51,18 +51,6 @@ body {
 	pointer-events: none;
 }
 
-.asterisk {
-	-webkit-text-stroke: 1px gray;
-	-webkit-text-fill-color: black;
-}
-
-.asterisk-note {
-	position: fixed;
-	bottom: 0.5em;
-	left: 0.5em;
-	font-size: 1em;
-}
-
 .lars1 {
 	z-index: -1;
 	pointer-events: auto;
@@ -106,4 +94,34 @@ body {
 @keyframes rainbow {
 	from { filter: hue-rotate(0deg) contrast(10) blur(0.05em); }
 	to { filter: hue-rotate(-360deg) contrast(10); }
+}
+
+.settings {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 3em;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: baseline; */
+	/* align-items: center; */
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background-color: aliceblue;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+#lang {
+	width: 20em;
+}
+
+label {
+	margin-top: 1em;
+}
+
+#ya {
+	width: 10em;
+	margin: 2em;
 }

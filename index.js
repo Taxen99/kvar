@@ -4,50 +4,96 @@ function to_millis(minutes) {
 	return minutes * 60 * 1000;
 }
 
-function lesson(begin, end) {
+function lesson(begin, end, pred = null) {
 	return {
 		'begin': Date.parse(begin),
 		'end': Date.parse(end),
+		'pred': pred,
 	}
 }
 
-const LESSONS = [
-	lesson("2025-06-02T09:50", "2025-06-02T10:55"),
-	lesson("2025-06-02T12:05", "2025-06-02T12:55"),
-	lesson("2025-06-02T13:05", "2025-06-02T15:25"),
-	
-	lesson("2025-06-03T09:10", "2025-06-03T10:35"),
-	lesson("2025-06-03T10:50", "2025-06-03T11:40"),
-	lesson("2025-06-03T14:50", "2025-06-03T16:20"),
+let user_settings = {
+	'lang': 'fra',
+	'2c': false,
+	'extra_fysik': false,
+	'sva': false,
+	'long_math': false,
+	'bio': true,
+	'sam': true,
+	'idr': true,
+	'eng': true,
+	'fysik': true,
+	'svenska': true,
+	'ma5': true,
+	'prim_fys': false,
+};
 
-	lesson("2025-06-05T08:20", "2025-06-05T09:35"),
-	lesson("2025-06-05T09:35", "2025-06-05T11:00"),
+function matches(user_settings, x) {
+	for (const key in x) {
+		console.assert(key in user_settings === true);
+		if (user_settings[key] !== x[key])
+			return false;
+	}
+	return true;
+}
+
+function has_lesson(lesson) {
+	return lesson.pred === null ? true : matches(user_settings, lesson.pred);
+}
+
+const LESSONS = [
+	lesson("2025-06-02T08:20", "2025-06-02T09:40", { '2c': true }),
+	lesson("2025-06-02T09:50", "2025-06-02T10:55", { 'eng': true }),
+	lesson("2025-06-02T12:05", "2025-06-02T12:55", { 'lang': 'fra' }),
+	lesson("2025-06-02T11:05", "2025-06-02T12:20", { 'lang': 'spa' }),
+	lesson("2025-06-02T11:05", "2025-06-02T11:55", { 'lang': 'deu' }),
+	lesson("2025-06-02T13:05", "2025-06-02T15:25", { 'long_math': false }),
+	lesson("2025-06-02T13:05", "2025-06-02T16:05", { 'long_math': true }),
+	
+	lesson("2025-06-03T09:10", "2025-06-03T10:35", { 'sam': true }),
+	lesson("2025-06-03T10:50", "2025-06-03T11:40", { 'idr': true }),
+	lesson("2025-06-03T12:30", "2025-06-03T14:40", { '2c': true }),
+	lesson("2025-06-03T14:50", "2025-06-03T16:20", { 'eng': true }),
+
+	lesson("2025-06-05T08:20", "2025-06-05T09:35", { 'bio': true }),
+	lesson("2025-06-05T09:35", "2025-06-05T11:00", { 'svenska': true }),
+	lesson("2025-06-05T11:15", "2025-06-05T11:40", { 'sva': true }),
+	lesson("2025-06-05T11:40", "2025-06-05T12:50", { '2c': true }),
 
 	//
 
-	lesson("2025-06-09T09:50", "2025-06-09T10:55"),
-	lesson("2025-06-09T12:30", "2025-06-09T14:30"),
-	lesson("2025-06-09T14:50", "2025-06-09T16:05"), // kanske ta bort
+	lesson("2025-06-09T08:20", "2025-06-09T09:40", { '2c': true }),
+	lesson("2025-06-09T09:50", "2025-06-09T10:55", { 'eng': true }),
+	lesson("2025-06-09T11:05", "2025-06-09T12:20", { 'lang': 'spa' }),
+	lesson("2025-06-09T11:05", "2025-06-09T11:55", { 'lang': 'deu' }),
+	lesson("2025-06-09T12:30", "2025-06-09T14:30", { 'fysik': true }),
+	lesson("2025-06-09T14:50", "2025-06-09T16:05", { 'extra_fysik': true }), // kanske ta bort
 
-	lesson("2025-06-10T09:10", "2025-06-10T10:35"),
-	lesson("2025-06-10T10:50", "2025-06-10T11:40"),
-	lesson("2025-06-10T14:50", "2025-06-10T16:20"),
+	lesson("2025-06-10T09:10", "2025-06-10T10:35", { 'sam': true }),
+	lesson("2025-06-10T10:50", "2025-06-10T11:40", { 'idr': true }),
+	lesson("2025-06-10T12:30", "2025-06-10T14:40", { '2c': true }),
+	lesson("2025-06-10T14:50", "2025-06-10T16:20", { 'eng': true }),
 
-	lesson("2025-06-11T08:20", "2025-06-11T09:30"),
-	lesson("2025-06-11T09:40", "2025-06-11T10:50"),
-	lesson("2025-06-11T12:10", "2025-06-11T13:05"),
-	lesson("2025-06-11T13:15", "2025-06-11T14:25"),
+	lesson("2025-06-11T08:20", "2025-06-11T09:30", { 'prim_fys': true, 'fysik': true }),
+	lesson("2025-06-11T09:40", "2025-06-11T10:50", { 'prim_fys': false, 'fysik': true }),
+	lesson("2025-06-11T08:20", "2025-06-11T09:30", { 'prim_fys': false, 'bio': true }),
+	lesson("2025-06-11T09:40", "2025-06-11T10:50", { 'prim_fys': true, 'bio': true }),
+	lesson("2025-06-11T12:10", "2025-06-11T13:05", { 'lang': 'fra' }),
+	lesson("2025-06-11T11:05", "2025-06-11T12:25", { 'lang': 'spa' }),
+	lesson("2025-06-11T11:05", "2025-06-11T12:00", { 'lang': 'deu' }),
+	lesson("2025-06-11T13:15", "2025-06-11T14:25", { 'ma5': true }),
 	lesson("2025-06-11T13:35", "2025-06-11T15:05"),
 ];
 
 for (const lesson of LESSONS) {
-	console.assert(lesson.end - lesson.begin <= 1000 * 3600 * 2 + 1000 * 60 * 20, lesson);
+	console.assert(lesson.end - lesson.begin <= 1000 * 3600 * 3, lesson);
 }
 
 function time_left() {
 	const now = Date.now();
 	return LESSONS
 		.filter(x => x.end >= now)
+		.filter(x => has_lesson(x))
 		.reduce((acc, curr) => acc += (curr.end - now) - Math.max(curr.begin - now, 0), 0);
 }
 
@@ -69,6 +115,31 @@ function format_millis(millis) {
 }
 
 let YAY = false;
+
+let HAS_OPTIONS = !!localStorage.getItem('opt');
+
+if (!HAS_OPTIONS) {
+	document.querySelectorAll('input').forEach(x => ((x.checked = user_settings[x.id]), x.addEventListener('input', e => {
+		console.assert(typeof e.target.checked === 'boolean');
+		console.assert(e.target.id in user_settings);
+		user_settings[e.target.id] = e.target.checked;
+		console.table(user_settings);
+	})));
+	document.querySelector('select').addEventListener('change', e => {
+		console.assert(['fra', 'spa', 'deu'].includes(e.target.value));
+		user_settings['lang'] = e.target.value;
+		console.table(user_settings);
+	});
+	const ya = document.querySelector('#ya');
+	ya.value = user_settings['lang'];
+	ya.addEventListener('click', _ => {
+		localStorage.setItem('opt', JSON.stringify(user_settings));
+		location.reload();
+	});
+} else {
+	document.querySelector('.settings').style.display = 'none';
+	user_settings = JSON.parse(localStorage.getItem('opt'));
+}
 
 const synth = window.speechSynthesis;
 let voice = null;
@@ -97,3 +168,5 @@ function frame() {
 	requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+
+[...document.querySelectorAll('.hover-c')].forEach(x => x.style.display = 'none');
