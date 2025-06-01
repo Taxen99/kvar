@@ -170,3 +170,7 @@ function frame() {
 requestAnimationFrame(frame);
 
 [...document.querySelectorAll('.hover-c')].forEach(x => x.style.display = 'none');
+
+setTimeout(_ => {
+	[...document.querySelectorAll('.hover-c')].forEach(x => x.style.display = 'inline');
+}, 1);
